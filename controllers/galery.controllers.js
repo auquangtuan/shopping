@@ -12,17 +12,6 @@ const uploadGalery = async (req, res) => {
     res.send(createGalery)
 }
 
-const uploadMore = async (req, res) => {
-    const { product_id } = req.body
-    const {files} = req
-    console.log(files)
-    const urlImgGalery = `http://localhost:3333/${files.path}`
-    const createGalery = await Galery.create({product_id, urlImgGalery })
-    await createGalery.save()
-    res.send(createGalery)
-}
-
 module.exports = {
-    uploadGalery,
-    uploadMore
+    uploadGalery
 }

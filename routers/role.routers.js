@@ -7,11 +7,12 @@ const roleRouter = require('express-promise-router')()
 
 roleRouter.route('/')
     .get(getAllRole)
-    .post(authentication,authorrize(['ADMIN']),createRole)
+    .post(createRole)
 roleRouter.route('/:id')
     .get(getOneRole)
-    .put(authentication,authorrize(['ADMIN']),editRole)
-    .delete(checkExits(Role),authentication,authorrize(['ADMIN']),deleteRole)
+    .put(editRole)
+    .delete(checkExits(Role),deleteRole)
 module.exports = {
     roleRouter
 }
+//authentication,authorrize(['ADMIN'])

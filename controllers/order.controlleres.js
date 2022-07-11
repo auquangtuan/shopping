@@ -1,4 +1,4 @@
-const {Order, User, Order_Details} = require('../models')
+const {Order, User} = require('../models')
 const getAllOrder = async (req,res) => {
     const allOrder = await Order.findAll()
     res.status(200).send(allOrder)

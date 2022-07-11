@@ -4,8 +4,6 @@ const galeryRouter = require('express-promise-router')()
 
 galeryRouter.route('/single')
     .post(uploadGalerys('thumbnail') ,uploadGalery)
-galeryRouter.route('/more')
-    .post(uploadGalerys('photos',12), uploadMore)
 module.exports = {
     galeryRouter
 }

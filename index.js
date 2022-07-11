@@ -2,7 +2,8 @@ const express = require('express')
 const app = express()
 const path = require('path')
 const PORT = 3333;
-
+var cors = require('cors');
+app.use(cors());
 const { rootRouter } = require('./routers')
 
 const publicPathDirectory = path.join(__dirname, './public')

@@ -37,6 +37,16 @@ module.exports = {
           key : "id"
         }
       },
+      size : {
+        type: Sequelize.INTEGER
+      },
+      gender_ID : {
+        type : Sequelize.INTEGER,
+        references : {
+          model : "genders",
+          key : "id"
+        }
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

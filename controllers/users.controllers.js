@@ -31,7 +31,7 @@ const login = async (req, res) => {
         const isAuth = bcrypt.compareSync(password, user.password);
         if (isAuth) {
             const asscess_Token = jwt.sign({ email: user.email, fullname: user.fullname, phone: user.phone, address: user.address, role: user.role_id }, "nhom01")
-            res.status(200).send({ message: "Đăng Nhập Thành Công", asscess_Token })
+            res.status(200).send({  email: user.email, fullname: user.fullname, phone: user.phone, address: user.address, role: user.role_id, asscess_Token })
 
         } else {
             res.status(500).send("Tài Khoản Hoặc Mật Khẩu Không Đúng")
@@ -111,7 +111,13 @@ const getAllUsers = async (req, res) => {
         })
         res.status(200).send(UserList)
     } else {
-        const UserList = await User.findAll()
+        const UserList = await User.findAll({
+            include: [
+                {
+                    model: Role,
+                }
+            ]
+        })
         res.status(200).send(UserList)
     }
 }
