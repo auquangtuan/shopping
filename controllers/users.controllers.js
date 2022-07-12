@@ -1,4 +1,4 @@
-const { User, Role, sequelize } = require('../models')
+const { User, Role, sequelize, Order } = require('../models')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const { Op } = require('sequelize')
@@ -115,6 +115,9 @@ const getAllUsers = async (req, res) => {
             include: [
                 {
                     model: Role,
+                },
+                {
+                    model : Order
                 }
             ]
         })
@@ -131,6 +134,9 @@ const findOneUser = async (req, res) => {
         include: [
             {
                 model: Role,
+            },
+            {
+                model : Order
             }
         ]
     })

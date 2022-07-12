@@ -3,15 +3,15 @@ const { authentication } = require('../middlewares/authentication/authentication
 const { authorrize } = require('../middlewares/authentication/authorrize')
 const { checkExits } = require('../middlewares/validation/checkExits')
 const {Gender} = require('../models')
-const GenderRouter = require('express-promise-router')()
+const genderRouter = require('express-promise-router')()
 
-GenderRouter.route('/')
+genderRouter.route('/')
     .get(getAllGender)
-    .post(authentication,authorrize(['ADMIN']),createGender)
-GenderRouter.route('/:id')
+    .post(authentication,authorrize([1]),createGender)
+genderRouter.route('/:id')
     .get(getOneGender)
-    .put(authentication,authorrize(['ADMIN']),editGender)
-    .delete(checkExits(Gender),authentication,authorrize(['ADMIN']),deleteGender)
+    .put(authentication,authorrize([1]),editGender)
+    .delete(checkExits(Gender),authentication,authorrize([1]),deleteGender)
 module.exports = {
-    GenderRouter
+    genderRouter
 }

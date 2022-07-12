@@ -1,12 +1,6 @@
-const {Product, Category, Galery} = require('../models')
+const {Product, Category, Galery, Size, Tag, Gender} = require('../models')
 const getAllProduct = async (req,res) => {
-    const allProduct = await Product.findAll({
-        include: [
-            {
-                model : Galery
-            }
-        ]
-    })
+    const allProduct = await Product.findAll()
     res.status(200).send(allProduct)
 }
 const createProduct = async (req,res) => {
@@ -22,10 +16,19 @@ const getOneProduct = async (req,res) => {
         },
         include : [
             {
-                model: Category
+                model : Galery
             },
             {
-                model : Galery
+                model : Size
+            },
+            {
+                model : Category
+            },
+            {
+                model: Tag
+            },
+            {
+                model : Gender
             }
         ]
     })
@@ -57,10 +60,25 @@ const deleteProduct = async (req,res) => {
     })
     res.status(200).send("Đã Xóa")
 }
+
+const uploadThumbnail = async (req, res) => {
+    const {id}= req.params
+    const { file } = req;
+    const urlIThumbnail = `http://localhost:3333/${file.path}`
+    const productFound = await Product.findOne({
+        where: {
+            id,
+        }
+    })
+    productFound.thumbnail = urlIThumbnail
+    await productFound.save()
+    res.send(productFound)
+}
 module.exports = {
     getAllProduct,
     createProduct,
     editProduct,
     deleteProduct,
-    getOneProduct
+    getOneProduct,
+    uploadThumbnail
 }

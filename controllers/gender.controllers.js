@@ -1,6 +1,12 @@
-const {Gender} = require('../models')
+const {Gender, Product} = require('../models')
 const getAllGender = async (req,res) => {
-    const allGender = await Gender.findAll()
+    const allGender = await Gender.findAll({
+        include : [
+            {
+                model : Product
+            }
+        ]
+    })
     res.status(200).send(allGender)
 }
 const getOneGender = async (req,res) => {
@@ -8,7 +14,12 @@ const getOneGender = async (req,res) => {
     const oneGender = await Gender.findAll({
         where: {
             id
-        }
+        },
+        include : [
+            {
+                model : Product
+            }
+        ]
     })
     res.status(200).send(oneGender)
 }

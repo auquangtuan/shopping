@@ -10,6 +10,7 @@ module.exports = {
       },
       user_ID: {
         type: Sequelize.INTEGER,
+        allowNull: true,
         references: {
           model : "users",
           key: "id"
@@ -29,9 +30,6 @@ module.exports = {
       },
       note: {
         type: Sequelize.STRING(1000)
-      },
-      status: {
-        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

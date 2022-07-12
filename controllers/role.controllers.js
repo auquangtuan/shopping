@@ -1,6 +1,12 @@
 const {Role, User} = require('../models')
 const getAllRole = async (req,res) => {
-    const allRole = await Role.findAll()
+    const allRole = await Role.findAll({
+        include : [
+            {
+                model : User
+            }
+        ]
+    })
     res.status(200).send(allRole)
 }
 const getOneRole = async (req,res) => {

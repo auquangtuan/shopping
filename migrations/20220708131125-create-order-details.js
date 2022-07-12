@@ -28,6 +28,13 @@ module.exports = {
       number: {
         type: Sequelize.INTEGER
       },
+      status: {
+        type: Sequelize.INTEGER,
+        references : {
+          model : "statuses",
+          key : "id"
+        }
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

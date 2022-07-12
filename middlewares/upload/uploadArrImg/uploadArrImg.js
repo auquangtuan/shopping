@@ -1,6 +1,6 @@
 const mkdirp = require('mkdirp')
 const multer = require('multer')
-const uploadGalerys = (type) => {
+const uploadArrImg = (type) => {
     const made = mkdirp.sync(`./public/images/${type}`)
     const storage = multer.diskStorage({
         destination: function (req, file, callback) {
@@ -22,9 +22,9 @@ const uploadGalerys = (type) => {
             }
         }
     })
-    return upload.single(type)
+    return upload.array(type, 12)
 
 }
 module.exports = {
-    uploadGalerys
+    uploadArrImg
 }

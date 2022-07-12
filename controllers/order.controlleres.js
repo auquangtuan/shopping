@@ -1,6 +1,12 @@
 const {Order, User} = require('../models')
 const getAllOrder = async (req,res) => {
-    const allOrder = await Order.findAll()
+    const allOrder = await Order.findAll({
+        include : [
+            {
+                model : User
+            }
+        ]
+    })
     res.status(200).send(allOrder)
 }
 const createOrder = async (req,res) => {

@@ -1,9 +1,10 @@
 const authorrize = (arrType) => (req,res,next) => {
     const {user} = req
-    if( arrType.findIndex((ele) => ele === user.type ) > -1 ) {
+    console.log(user)
+    if( user.role === 1 ) {
         next();
     } else {
-        res.status(403).send({message: "Đã Đăng Nhập", author : false})
+        res.status(403).send({Message: "Đã Đăng Nhập", Warning: "Không phải Admin" ,Author : false})
     }
 }
 

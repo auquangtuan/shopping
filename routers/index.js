@@ -5,7 +5,14 @@ const { orderRouter } = require('./order.routers')
 const { orderDetailsRouter } = require('./orderDetails.routers')
 const { productRouter } = require('./product.routers')
 const { roleRouter } = require('./role.routers')
+const { statusRouter } = require('./status.routers')
 const { userRouter } = require('./users.routers')
+const { bannerRouter } = require('./banner.routers')
+const { feedbackRouter } = require('./feedback.routers')
+const { tagRouter } = require('./tag.routers')
+const { sizeRouter } = require('./size.routers')
+const { genderRouter } = require('./gender.routers')
+const { productSizeRouter } = require('./productSize.routers')
 
 const rootRouter = express.Router()
 
@@ -16,6 +23,13 @@ rootRouter.use('/product', productRouter )
 rootRouter.use('/galery', galeryRouter )
 rootRouter.use('/order', orderRouter )
 rootRouter.use('/orderDetails', orderDetailsRouter )
+rootRouter.use('/status', statusRouter )
+rootRouter.use('/banner', bannerRouter )
+rootRouter.use('/feedback', feedbackRouter )
+rootRouter.use('/tag', tagRouter )
+rootRouter.use('/size', sizeRouter )
+rootRouter.use('/gender', genderRouter )
+rootRouter.use('/productSize', productSizeRouter )
 
 module.exports = {
     rootRouter

@@ -1,6 +1,12 @@
 const {Category, Product} = require('../models')
 const getAllCategory = async (req,res) => {
-    const allCategory = await Category.findAll()
+    const allCategory = await Category.findAll({
+        include : [
+            {
+                model : Product 
+            }
+        ]
+    })
     res.status(200).send(allCategory)
 }
 const createCategory = async (req,res) => {

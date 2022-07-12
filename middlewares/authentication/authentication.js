@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
 
 const authentication = (req,res,next) => {
-    const token = req.header("token");
+    const token = req.header("asscess_Token");
     try {
         const decode = jwt.verify(token, "nhom01")
         if(decode) {
