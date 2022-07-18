@@ -1,4 +1,4 @@
-const { getAllGender, createGender, editGender, deleteGender, getOneGender } = require('../controllers/Gender.controllers')
+const { getAllGender, createGender, editGender, deleteGender, getOneGender } = require('../controllers/gender.controllers')
 const { authentication } = require('../middlewares/authentication/authentication')
 const { authorrize } = require('../middlewares/authentication/authorrize')
 const { checkExits } = require('../middlewares/validation/checkExits')

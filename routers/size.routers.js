@@ -1,4 +1,4 @@
-const { getAllSize, createSize, editSize , deleteSize, getOneSize } = require('../controllers/Size.controllers')
+const { getAllSize, createSize, editSize , deleteSize, getOneSize } = require('../controllers/size.controllers')
 const { authentication } = require('../middlewares/authentication/authentication')
 const { authorrize } = require('../middlewares/authentication/authorrize')
 const { checkExits } = require('../middlewares/validation/checkExits')

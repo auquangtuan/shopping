@@ -1,4 +1,4 @@
-const { getAllTag, createTag, editTag , deleteTag, getOneTag } = require('../controllers/Tag.controllers')
+const { getAllTag, createTag, editTag , deleteTag, getOneTag } = require('../controllers/tag.controllers')
 const { authentication } = require('../middlewares/authentication/authentication')
 const { authorrize } = require('../middlewares/authentication/authorrize')
 const { checkExits } = require('../middlewares/validation/checkExits')

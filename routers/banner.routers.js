@@ -1,4 +1,4 @@
-const { getAllBanner, createBanner , deleteBanner, getOneBanner } = require('../controllers/Banner.controllers')
+const { getAllBanner, createBanner , deleteBanner, getOneBanner } = require('../controllers/banner.controllers')
 const { authentication } = require('../middlewares/authentication/authentication')
 const { authorrize } = require('../middlewares/authentication/authorrize')
 const { uploadSingleImg } = require('../middlewares/upload/uploadSingleImg/uploadSingleImg')
