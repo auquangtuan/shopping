@@ -2,7 +2,9 @@ const { getAllStatus, createStatus, editStatus , deleteStatus, getOneStatus } = 
 const { authentication } = require('../middlewares/authentication/authentication')
 const { authorrize } = require('../middlewares/authentication/authorrize')
 const { checkExits } = require('../middlewares/validation/checkExits')
+
 const {Status} = require('../models')
+
 const statusRouter = require('express-promise-router')()
 
 statusRouter.route('/')
