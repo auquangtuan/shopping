@@ -1,10 +1,10 @@
 require('dotenv').config()
 module.exports = {
     "development": {
-        "username": "root",
-        "password": process.env.PASSWORD,
+        "username": "auquangtuan@shoppingshopdb",
+        "password": "tuan1011A@",
         "database": "shopping_db",
-        "host": "127.0.0.1",
+        "host": "shoppingshopdb.mysql.database.azure.com",
         "dialect": "mysql"
     },
     "test": {
