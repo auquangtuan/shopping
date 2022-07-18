@@ -1,4 +1,4 @@
-const { getAllStatus, createStatus, editStatus , deleteStatus, getOneStatus } = require('../controllers/Status.controllers')
+const { getAllStatus, createStatus, editStatus , deleteStatus, getOneStatus } = require('../controllers/status.controllers')
 const { authentication } = require('../middlewares/authentication/authentication')
 const { authorrize } = require('../middlewares/authentication/authorrize')
 const { checkExits } = require('../middlewares/validation/checkExits')
