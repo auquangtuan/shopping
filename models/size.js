@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate({Product, Product_Size}) {
       this.belongsToMany(Product, {through :Product_Size, foreignKey : "size_ID" })
+      this.hasMany(Product_Size, {foreignKey : "size_ID"})
     }
   }
   Size.init({

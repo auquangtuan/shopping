@@ -1,4 +1,5 @@
 const {Role, User} = require('../models')
+
 const getAllRole = async (req,res) => {
     const allRole = await Role.findAll({
         include : [
@@ -11,7 +12,7 @@ const getAllRole = async (req,res) => {
 }
 const getOneRole = async (req,res) => {
     const {id} = req.params
-    const oneRole = await Role.findAll({
+    const oneRole = await Role.findOne({
         where: {
             id
         },

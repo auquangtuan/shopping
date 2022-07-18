@@ -2,7 +2,9 @@ const { getAllRole, createRole, editRole, deleteRole, getOneRole } = require('..
 const { authentication } = require('../middlewares/authentication/authentication')
 const { authorrize } = require('../middlewares/authentication/authorrize')
 const { checkExits } = require('../middlewares/validation/checkExits')
+
 const {Role} = require('../models')
+
 const roleRouter = require('express-promise-router')()
 
 roleRouter.route('/')

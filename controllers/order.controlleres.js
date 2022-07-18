@@ -1,4 +1,4 @@
-const {Order, User} = require('../models')
+const {Order, User, Order_Details} = require('../models')
 const getAllOrder = async (req,res) => {
     const allOrder = await Order.findAll({
         include : [
@@ -16,17 +16,14 @@ const createOrder = async (req,res) => {
 }
 const getOneOrder = async (req,res) => {
     const {id} = req.params
-    const oneOrder = await Order.findAll({
-        where: {
+    const orDerDetails = await Order.findAll({
+        where : {
             id
-        },
-        include : [
-            {
-                model : User
-            }
-        ]
+        }
     })
-    res.status(200).send(oneOrder)
+    console.log(orDerDetails)
+
+    res.status(200).send(orDerDetails)
 }
 const editOrder = async (req,res) => {
     const {id} = req.params
@@ -54,10 +51,23 @@ const deleteOrder = async (req,res) => {
     })
     res.status(200).send("Đã Xóa")
 }
+const setStatusOrder = async (req,res) => {
+    const {id} = req.params
+    const {status} = req.body
+    const OrderStatus = await Order.findOne({
+        where: {
+            id
+        }
+    })
+    OrderStatus.status = status
+    await OrderStatus.save()
+    res.status(201).send(OrderStatus)
+}
 module.exports = {
     getAllOrder,
     createOrder,
     editOrder,
     deleteOrder,
-    getOneOrder
+    getOneOrder,
+    setStatusOrder
 }

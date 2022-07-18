@@ -7,7 +7,7 @@ const feedbackRouter = require('express-promise-router')()
 
 feedbackRouter.route('/')
     .get(getAllFeedback)
-    .post(checkExits(Feedback),authentication,authorrize([1]),createFeedback)
+    .post(authentication,authorrize([1]),createFeedback)
 feedbackRouter.route('/:id')
     .get(getOneFeedback)
     .delete(checkExits(Feedback),authentication,authorrize([1]),deleteFeedback)

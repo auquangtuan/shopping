@@ -1,42 +1,60 @@
-const {Product, Category, Galery, Size, Tag, Gender} = require('../models')
-const getAllProduct = async (req,res) => {
-    const allProduct = await Product.findAll()
+const { Product, Category, Galery, Size, Tag, Gender,Product_Size } = require('../models')
+const getAllProduct = async (req, res) => {
+    const allProduct = await Product.findAll({
+        include: [
+            {
+                model: Category,
+                attributes: ['name']
+            }
+        ]
+    })
     res.status(200).send(allProduct)
 }
-const createProduct = async (req,res) => {
-    const {title,price,discount,thumbnail,description,category_id} = req.body
-    const addProduct = await Product.create({title,price,discount,thumbnail,description,category_id})
+const createProduct = async (req, res) => {
+    const { title, price, discount, thumbnail, description, category_id } = req.body
+    const addProduct = await Product.create({ title, price, discount, thumbnail, description, category_id })
     res.status(201).send(addProduct)
 }
-const getOneProduct = async (req,res) => {
-    const {id} = req.params
+const getOneProduct = async (req, res) => {
+    const { id } = req.params
     const oneProduct = await Product.findAll({
         where: {
             id
         },
-        include : [
+        include: [
             {
-                model : Galery
+                model : Size,
+                // include : [
+                //     {
+                //         model : Product_Size,
+                //         attributes: ['id', 'product_ID', "size_ID", "amount"],
+                //     }
+                // ]
+                
             },
             {
-                model : Size
+                model: Galery
             },
             {
-                model : Category
+                model: Category,
+                attributes: ['name']
             },
             {
-                model: Tag
+                model: Tag,
+                attributes: ['id','name']
             },
             {
-                model : Gender
+                model: Gender,
+                attributes: ['gender']
             }
+            
         ]
     })
     res.status(200).send(oneProduct)
 }
-const editProduct = async (req,res) => {
-    const {id} = req.params
-    const {title,price,discount,thumbnail,description,category_id} = req.body
+const editProduct = async (req, res) => {
+    const { id } = req.params
+    const { title, price, discount, thumbnail, description, category_id } = req.body
     const productEdit = await Product.findOne({
         where: {
             id,
@@ -51,10 +69,10 @@ const editProduct = async (req,res) => {
     await productEdit.save()
     res.status(201).send(productEdit)
 }
-const deleteProduct = async (req,res) => {
-    const {id} = req.params
+const deleteProduct = async (req, res) => {
+    const { id } = req.params
     await Product.destroy({
-        where : {
+        where: {
             id
         }
     })
@@ -62,7 +80,7 @@ const deleteProduct = async (req,res) => {
 }
 
 const uploadThumbnail = async (req, res) => {
-    const {id}= req.params
+    const { id } = req.params
     const { file } = req;
     const urlIThumbnail = `http://localhost:3333/${file.path}`
     const productFound = await Product.findOne({
