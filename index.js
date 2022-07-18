@@ -13,7 +13,7 @@ app.use(express.json())
 app.use('/api', rootRouter)
 
 app.use((err, req, res, next)=>{
-    const error = app.get('env') === "development" ? err : {}
+    const error = app.get('env') === "development" ? {err: "Deve Loi"} : {err : "nodeDeve"}
     const status = err.status || 500
     return res.status(status).json({
         error: {
