@@ -33,7 +33,7 @@ const editCategory = async (req,res) => {
     const {name} = req.body
     const categoryEdit = await Category.findOne({
         where: {
-            id,
+            id
         }
     })
     categoryEdit.name = name

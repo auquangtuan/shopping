@@ -76,7 +76,7 @@ const postOrder = async (req, res) => {
     const { user_ID, fullname, email, phone, address, note, arr } = req.body
 
     const createOrder = await Order.create({ user_ID, fullname, email, phone, address, note })
-    console.log("là",arr.length)
+    
     for (let i = 0; i < arr.length; i++) {
 
 

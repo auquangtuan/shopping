@@ -17,7 +17,7 @@ const getOneBanner = async (req, res) => {
 }
 const createBanner = async (req, res) => {
     const { file } = req;
-    const urlImgBanner = `http://localhost:3333/${file.path}`
+    const urlImgBanner = `https://backendshopping.herokuapp.com/${file.path}`
     const bannerCreate = await Galery.create({ name: urlImgBanner })
     await bannerCreate.save()
     res.status(200).send(bannerCreate)
