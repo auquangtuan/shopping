@@ -1,6 +1,5 @@
 const { Banner } = require('../models')
 
-
 const getAllBanner = async (req, res) => {
     const allBanner = await Banner.findAll()
     res.status(200).send(allBanner)
@@ -18,7 +17,7 @@ const getOneBanner = async (req, res) => {
 const createBanner = async (req, res) => {
     const { file } = req;
     const urlImgBanner = `https://backendshopping.herokuapp.com/${file.path}`
-    const bannerCreate = await Galery.create({ name: urlImgBanner })
+    const bannerCreate = await Banner.create({ name: urlImgBanner })
     await bannerCreate.save()
     res.status(200).send(bannerCreate)
 }
