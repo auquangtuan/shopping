@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const path = require('path')
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3333;
 var cors = require('cors');
 app.use(cors());
 
@@ -30,7 +30,7 @@ app.use((err, req, res, next)=>{
 
 })
 
-app.listen(PORT || 3333, async () => {
+app.listen(PORT, async () => {
     console.log(`Server Port : ${PORT}`)
     try {
         console.log(`Susscess Port ${PORT}`)

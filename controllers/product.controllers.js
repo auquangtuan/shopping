@@ -5,7 +5,11 @@ const getAllProduct = async (req, res) => {
             {
                 model: Category,
                 attributes: ['name']
-            }
+            },
+            {
+                model : Size,
+                
+            },
         ]
     })
     res.status(200).send(allProduct)
