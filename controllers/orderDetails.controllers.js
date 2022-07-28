@@ -118,6 +118,34 @@ const postOrder = async (req, res) => {
             await updateAmount.save()
         }
         res.status(201).send({messgage : 'Đặt Hàng Thành Công', createOrder})
+    } else {
+        
+        const createOrder = await Order.create({ user_ID, fullname, email, phone, address, note })
+        
+        for (let i = 0; i < arr.length; i++) {
+    
+    
+                const [getProductSizes] = await sequelize.query(
+                    `
+                    select product_sizes.id from product_sizes
+                    where product_sizes.product_ID = ${arr[i].product_ID} and product_sizes.size_ID = ${arr[i].size_ID}
+                    `
+                )
+                
+                const productSizes = getProductSizes[0].id
+                
+                
+                await Order_Details.create({ order_ID: createOrder.id, price: arr[i].price, number: arr[i].number, productSize: productSizes })
+                
+                const updateAmount = await Product_Size.findOne({
+                    where: {
+                        id : productSizes
+                    }
+                })
+                updateAmount.amount = (updateAmount.amount - arr[i].number)
+                await updateAmount.save()
+            }
+            res.status(201).send({messgage : 'Đặt Hàng Thành Công', createOrder})
     }
 }
 module.exports = {

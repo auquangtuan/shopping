@@ -5,14 +5,13 @@ const getAllProduct = async (req, res) => {
     if(title){
         const titleProduct = await Product.findAll({
             where : {
-                name : {
+                title : {
                     [Op.like] : `${title}`
                 }
             }
         })
         res.status(200).send(titleProduct)
     } else {
-
         const allProduct = await Product.findAll({
             include: [
                 {
