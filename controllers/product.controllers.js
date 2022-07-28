@@ -1,18 +1,32 @@
-const { Product, Category, Galery, Size, Tag, Gender,Product_Size } = require('../models')
+const { Op } = require('sequelize')
+const { Product, Category, Galery, Size, Tag, Gender } = require('../models')
 const getAllProduct = async (req, res) => {
-    const allProduct = await Product.findAll({
-        include: [
-            {
-                model: Category,
-                attributes: ['name']
-            },
-            {
-                model : Size,
-                
-            },
-        ]
-    })
-    res.status(200).send(allProduct)
+    const {title} =req.query
+    if(title){
+        const titleProduct = await Product.findAll({
+            where : {
+                name : {
+                    [Op.like] : `${title}`
+                }
+            }
+        })
+        res.status(200).send(titleProduct)
+    } else {
+
+        const allProduct = await Product.findAll({
+            include: [
+                {
+                    model: Category,
+                    attributes: ['name']
+                },
+                {
+                    model : Size,
+                    
+                },
+            ]
+        })
+        res.status(200).send(allProduct)
+    }
 }
 const createProduct = async (req, res) => {
     const { title, price, discount, thumbnail, description, category_id } = req.body
@@ -75,11 +89,15 @@ const editProduct = async (req, res) => {
 }
 const deleteProduct = async (req, res) => {
     const { id } = req.params
-    await Product.destroy({
-        where: {
-            id
-        }
+    // await Product.destroy({
+    //     where: {
+    //         id
+    //     }
+    // })
+    const deleteProduct = await Product.findOne({
+        where : id
     })
+    deleteProduct.delete = true;
     res.status(200).send("Đã Xóa")
 }
 

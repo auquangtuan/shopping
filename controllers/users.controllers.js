@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 const { Op } = require('sequelize')
 
 const register = async (req, res) => {
-    const { fullname, email, phone, address, password, role_id } = req.body
+    const { fullname, email, phone, address, password } = req.body
 
     const user = await User.findOne({
         where: {

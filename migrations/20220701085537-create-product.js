@@ -39,7 +39,8 @@ module.exports = {
         }
       },
       delete : {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
       },
       gender_ID : {
         type : Sequelize.INTEGER,
