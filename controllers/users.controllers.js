@@ -16,7 +16,24 @@ const register = async (req, res) => {
     } else {
         const salt = bcrypt.genSaltSync(3);
         const hashPassword = bcrypt.hashSync(password, salt)
-        const newUser = await User.create({ fullname, email, phone, address, password: hashPassword, role_id })
+        const newUser = await User.create({ fullname, email, phone, address, password: hashPassword, role_id : 2 })
+        res.status(201).send(newUser)
+    }
+}
+const registerAdmin = async (req, res) => {
+    const { fullname, email, phone, address, password, role_id } = req.body
+
+    const user = await User.findOne({
+        where: {
+            email
+        }
+    })
+    if (user) {
+        res.status(404).send({ error: "Email Đã Tồn Tại" })
+    } else {
+        const salt = bcrypt.genSaltSync(3);
+        const hashPassword = bcrypt.hashSync(password, salt)
+        const newUser = await User.create({ fullname, email, phone, address, password: hashPassword, role_id : 1 })
         res.status(201).send(newUser)
     }
 }
@@ -30,7 +47,7 @@ const login = async (req, res) => {
     if (user) {
         const isAuth = bcrypt.compareSync(password, user.password);
         if (isAuth) {
-            const asscess_Token = jwt.sign({ email: user.email, fullname: user.fullname, phone: user.phone, address: user.address, role: user.role_id }, "nhom01")
+            const asscess_Token = 'Bearer ' + jwt.sign({ email: user.email, fullname: user.fullname, phone: user.phone, address: user.address, role: user.role_id }, "nhom01")
             res.status(200).send({  email: user.email, fullname: user.fullname, phone: user.phone, address: user.address, role: user.role_id, asscess_Token })
 
         } else {
@@ -168,5 +185,6 @@ module.exports = {
     updateUser,
     editRole,
     getAllOrder,
-    getOneOrderinUser
+    getOneOrderinUser,
+    registerAdmin
 }

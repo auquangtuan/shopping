@@ -5,12 +5,6 @@ const PORT = process.env.PORT || 3333;
 var cors = require('cors');
 app.use(cors());
 
-const swaggerUi = require('swagger-ui-express');
-const YAML = require('yamljs')
-const swaggerDocument = YAML.load('./swagger.yaml');
-
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
 const { rootRouter } = require('./routers')
 
 const publicPathDirectory = path.join(__dirname, './public')

@@ -1,9 +1,14 @@
-const {Category, Product} = require('../models')
+const {Category, Product, Size} = require('../models')
 const getAllCategory = async (req,res) => {
     const allCategory = await Category.findAll({
         include : [
             {
-                model : Product 
+                model : Product,
+                include :[
+                    {
+                        model : Size
+                    }
+                ]
             }
         ]
     })

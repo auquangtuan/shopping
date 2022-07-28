@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.TEXT('long'),
     category_id: DataTypes.INTEGER,
     tag_id : DataTypes.INTEGER,
-    size: DataTypes.INTEGER,
+    delete: DataTypes.BOOLEAN,
     gender_ID: DataTypes.INTEGER
   }, {
     sequelize,

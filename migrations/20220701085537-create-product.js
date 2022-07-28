@@ -9,7 +9,8 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       title: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       price: {
         type: Sequelize.INTEGER
@@ -18,7 +19,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       thumbnail: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       description: {
         type: Sequelize.TEXT('long')
@@ -37,8 +38,8 @@ module.exports = {
           key : "id"
         }
       },
-      size : {
-        type: Sequelize.INTEGER
+      delete : {
+        type: Sequelize.BOOLEAN
       },
       gender_ID : {
         type : Sequelize.INTEGER,
