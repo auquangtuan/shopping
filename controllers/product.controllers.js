@@ -1,6 +1,8 @@
 const { Op } = require('sequelize')
 const { Product, Category, Galery, Size, Tag, Gender } = require('../models')
 const getAllProduct = async (req, res) => {
+    const limit = parseInt(req.query.limit)
+    const offset = parseInt(req.query.offset)
     const {title} =req.query
     if(title){
         const titleProduct = await Product.findAll({
@@ -11,7 +13,18 @@ const getAllProduct = async (req, res) => {
             }
         })
         res.status(200).send(titleProduct)
-    } else {
+    } else if((limit >= 1 ) & (offset >= 0)) {
+        //
+        const pagiProduct = await Product.findAndCountAll({
+            limit : limit,
+            offset : limit * offset,
+            order: [
+                ['id', 'ASC']
+            ]
+        })
+        res.status(200).send(pagiProduct)
+        //
+    } else { 
         const allProduct = await Product.findAll({
             include: [
                 {

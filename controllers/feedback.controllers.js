@@ -16,8 +16,8 @@ const getOneFeedback = async (req,res) => {
 }
 const createFeedback = async (req,res) => {
     //chưa xong
-    const {name} = req.body
-    const addFeedback = await Feedback.create({name})
+    const {firstName, lastName, email, phone, subjectName, note, status} = req.body
+    const addFeedback = await Feedback.create({firstName, lastName, email, phone, subjectName, note, status})
     res.status(201).send(addFeedback)
 }
 const deleteFeedback = async (req,res) => {

@@ -13,23 +13,42 @@ const { tagRouter } = require('./tag.routers')
 const { sizeRouter } = require('./size.routers')
 const { genderRouter } = require('./gender.routers')
 const { productSizeRouter } = require('./productSize.routers')
-
 const rootRouter = express.Router()
+const arr =
+[
+    "/role",
+    "/users",
+    "/cate",
+    "/product",
+    "/galery",
+    "/order",
+    "/orderDetails",
+    "/status",
+    "/banner",
+    "/feedback",
+    "/tag",
+    "/size",
+    "/gender",
+    "/productSize",
+]
 
-rootRouter.use('/role', roleRouter )
-rootRouter.use('/users', userRouter )
-rootRouter.use('/cate', categoryRouter )
-rootRouter.use('/product', productRouter )
-rootRouter.use('/galery', galeryRouter )
-rootRouter.use('/order', orderRouter )
-rootRouter.use('/orderDetails', orderDetailsRouter )
-rootRouter.use('/status', statusRouter )
-rootRouter.use('/banner', bannerRouter )
-rootRouter.use('/feedback', feedbackRouter )
-rootRouter.use('/tag', tagRouter )
-rootRouter.use('/size', sizeRouter )
-rootRouter.use('/gender', genderRouter )
-rootRouter.use('/productSize', productSizeRouter )
+rootRouter.use('/', (req, res) => {
+    return res.send(arr)
+})
+rootRouter.use('/role', roleRouter)
+rootRouter.use('/users', userRouter)
+rootRouter.use('/cate', categoryRouter)
+rootRouter.use('/product', productRouter)
+rootRouter.use('/galery', galeryRouter)
+rootRouter.use('/order', orderRouter)
+rootRouter.use('/orderDetails', orderDetailsRouter)
+rootRouter.use('/status', statusRouter)
+rootRouter.use('/banner', bannerRouter)
+rootRouter.use('/feedback', feedbackRouter)
+rootRouter.use('/tag', tagRouter)
+rootRouter.use('/size', sizeRouter)
+rootRouter.use('/gender', genderRouter)
+rootRouter.use('/productSize', productSizeRouter)
 
 module.exports = {
     rootRouter
