@@ -32,7 +32,7 @@ const arr =
     "/api/productSize",
 ]
 
-rootRouter.use('/', (req, res) => {
+rootRouter.use('/api', (req, res) => {
     return res.send(arr)
 })
 rootRouter.use('/role', roleRouter)
