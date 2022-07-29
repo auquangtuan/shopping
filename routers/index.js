@@ -16,20 +16,20 @@ const { productSizeRouter } = require('./productSize.routers')
 const rootRouter = express.Router()
 const arr =
 [
-    "/role",
-    "/users",
-    "/cate",
-    "/product",
-    "/galery",
-    "/order",
-    "/orderDetails",
-    "/status",
-    "/banner",
-    "/feedback",
-    "/tag",
-    "/size",
-    "/gender",
-    "/productSize",
+    "/api/role",
+    "/api/users",
+    "/api/cate",
+    "/api/product",
+    "/api/galery",
+    "/api/order",
+    "/api/orderDetails",
+    "/api/status",
+    "/api/banner",
+    "/api/feedback",
+    "/api/tag",
+    "/api/size",
+    "/api/gender",
+    "/api/productSize",
 ]
 
 rootRouter.use('/', (req, res) => {
