@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 const authentication = (req,res,next) => {
     const token = req.header("asscess_Token");
     try {
-        const decode = jwt.verify(`Bearer ${token}`, "nhom01")
+        const decode = jwt.verify(token, "nhom01")
         if(decode) {
             req.user = decode;
             return next()
