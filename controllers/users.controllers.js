@@ -1,4 +1,4 @@
-const { User, Role, sequelize, Order, Order_Details } = require('../models')
+const { User, Role, sequelize, Order, Order_Details , Status, Product_Size} = require('../models')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const { Op } = require('sequelize')
@@ -177,8 +177,6 @@ const getOrderinUser = async (req,res) => {
             user_ID : id
         }
     })
-    console.log(order.length)
-
     const arrOrder = []
     for(let i = 0; i < order.length; i++) {
         arrOrder.push(order[i].id)
@@ -188,10 +186,21 @@ const getOrderinUser = async (req,res) => {
         const orderDtail = await Order_Details.findOne({
             where : {
                 order_ID : arrOrder[i]
-            }
+            },
+            include : [
+                {
+                    model : Order,
+                    include : [
+                        {
+                            model : Status
+                        }
+                    ]
+                }
+            ]
         })
         arrOrderDetails.push(orderDtail)
     }
+
     res.status(200).send(arrOrderDetails)
 }
 module.exports = {
