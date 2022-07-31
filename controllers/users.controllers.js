@@ -47,7 +47,7 @@ const login = async (req, res) => {
     if (user) {
         const isAuth = bcrypt.compareSync(password, user.password);
         if (isAuth) {
-            const asscess_Token = jwt.sign({ email: user.email, fullname: user.fullname, phone: user.phone, address: user.address, role: user.role_id }, "nhom01")
+            const asscess_Token = jwt.sign({ id: user.id, email: user.email, fullname: user.fullname, phone: user.phone, address: user.address, role: user.role_id }, "nhom01")
             res.status(200).send({  email: user.email, fullname: user.fullname, phone: user.phone, address: user.address, role: user.role_id, asscess_Token })
 
         } else {
