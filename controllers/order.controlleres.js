@@ -1,9 +1,12 @@
-const {Order, User, Order_Details} = require('../models')
+const {Order, User, Status} = require('../models')
 const getAllOrder = async (req,res) => {
     const allOrder = await Order.findAll({
         include : [
             {
                 model : User
+            },
+            {
+                model : Status
             }
         ]
     })
@@ -19,7 +22,12 @@ const getOneOrder = async (req,res) => {
     const orDerDetails = await Order.findAll({
         where : {
             id
-        }
+        },
+        include : [
+            {
+                model : Status
+            }
+        ]
     })
     console.log(orDerDetails)
 
