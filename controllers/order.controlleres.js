@@ -67,7 +67,7 @@ const setStatusOrder = async (req,res) => {
             id
         }
     })
-    OrderStatus.status = status
+    OrderStatus.id = status
     await OrderStatus.save()
     res.status(201).send(OrderStatus)
 }
