@@ -1,4 +1,4 @@
-const { User, Role, sequelize, Order } = require('../models')
+const { User, Role, sequelize, Order, Order_Details } = require('../models')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const { Op } = require('sequelize')
@@ -170,10 +170,29 @@ const getAllOrder = async (req, res) => {
     )
     res.status(200).send(resuilt)
 }
-const getOneOrderinUser = async (req,res) => {
+const getOrderinUser = async (req,res) => {
     const {id} = req.params
-    
-    res.status(200).send(id)
+    const order = await Order.findAll({
+        where : {
+            user_ID : id
+        }
+    })
+    console.log(order.length)
+
+    const arrOrder = []
+    for(let i = 0; i < order.length; i++) {
+        arrOrder.push(order[i].id)
+    }
+    const arrOrderDetails = []
+    for(let i = 0; i < arrOrder.length ; i ++) {
+        const orderDtail = await Order_Details.findOne({
+            where : {
+                order_ID : arrOrder[i]
+            }
+        })
+        arrOrderDetails.push(orderDtail)
+    }
+    res.status(200).send(arrOrderDetails)
 }
 module.exports = {
     register,
@@ -185,6 +204,6 @@ module.exports = {
     updateUser,
     editRole,
     getAllOrder,
-    getOneOrderinUser,
+    getOrderinUser,
     registerAdmin
 }

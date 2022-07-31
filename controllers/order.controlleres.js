@@ -1,4 +1,4 @@
-const {Order, User, Status} = require('../models')
+const {Order, User, Status, Order_Details} = require('../models')
 const getAllOrder = async (req,res) => {
     const allOrder = await Order.findAll({
         include : [
@@ -26,6 +26,9 @@ const getOneOrder = async (req,res) => {
         include : [
             {
                 model : Status
+            },
+            {
+                model : Order_Details
             }
         ]
     })
