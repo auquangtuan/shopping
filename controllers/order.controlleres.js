@@ -70,9 +70,13 @@ const setStatusOrder = async (req,res) => {
             id
         }
     })
-    OrderStatus.status = status
-    await OrderStatus.save()
-    res.status(201).send(OrderStatus)
+    if(OrderStatus.status > status) {
+        return res.status(401).send("Lỗi, Không Thể Hoàn Về")
+    }else {
+        OrderStatus.status = status
+        await OrderStatus.save()
+        return res.status(201).send(OrderStatus)
+    }
 }
 module.exports = {
     getAllOrder,
