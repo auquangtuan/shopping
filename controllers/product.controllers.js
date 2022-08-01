@@ -43,7 +43,20 @@ const getAllProduct = async (req, res) => {
 const createProduct = async (req, res) => {
     const { title, price, discount, thumbnail, description, category_id } = req.body
     const addProduct = await Product.create({ title, price, discount, thumbnail, description, category_id })
-    res.status(201).send(addProduct)
+    //
+    const {id} = addProduct
+    const { file } = req;
+    const urlIThumbnail = `https://backendshopping.herokuapp.com/${file.path}`
+    const productFound = await Product.findOne({
+        where: {
+            id,
+        }
+    })
+    productFound.thumbnail = urlIThumbnail
+    await productFound.save()
+    res.send(productFound)
+    //
+    // res.status(201).send(addProduct)
 }
 const getOneProduct = async (req, res) => {
     const { id } = req.params
