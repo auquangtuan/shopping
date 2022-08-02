@@ -42,7 +42,7 @@ const getAllProduct = async (req, res) => {
 }
 const createProduct = async (req, res) => {
     const { title, price, discount, thumbnail, description, category_id, tag_id, gender_id } = req.body
-    const addProduct = await Product.create({ title, price, discount, thumbnail, description, category_id })
+    const addProduct = await Product.create({ title, price, discount, thumbnail, description, category_id , tag_id, gender_id})
     //
     const {id} = addProduct
     const { file } = req;
