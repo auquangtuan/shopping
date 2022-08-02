@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "auquangtuan@shoppingshopdb",
-    "password": "tuan1011A@",
+    "password": "nhommot1A",
     "database": "shopping_db",
     "host": "shoppingshopdb.mysql.database.azure.com",
     "dialect": "mysql"
