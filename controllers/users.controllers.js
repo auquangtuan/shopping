@@ -69,7 +69,7 @@ const deleteUser = async (req, res) => {
 }
 const updateUser = async (req, res) => {
     const { id } = req.params
-    const { fullname, phone, address } = req.body
+    const { fullname, phone, address, email, role_id } = req.body
     const userUpdate = await User.findOne({
         where: {
             id
@@ -78,6 +78,8 @@ const updateUser = async (req, res) => {
     userUpdate.fullname = fullname
     userUpdate.phone = phone
     userUpdate.address = address
+    userUpdate.email = email
+    userUpdate.role_id = role_id
     await userUpdate.save()
     res.status(200).send(userUpdate)
 }
@@ -102,19 +104,6 @@ const upadtePassword = async (req, res) => {
 
 }
 
-const editRole = async (req, res) => {
-    const { id } = req.params
-    const { role_id } = req.body
-    const roleUpdate = await User.findOne({
-        where: {
-            id,
-        }
-    })
-    roleUpdate.role_id = role_id;
-    await roleUpdate.save()
-    res.status(200).send(roleUpdate)
-
-}
 
 const getAllUsers = async (req, res) => {
     const { fullname } = req.query

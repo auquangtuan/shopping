@@ -1,6 +1,18 @@
 const { Op } = require('sequelize')
 const { Product, Category, Galery, Size, Tag, Gender } = require('../models')
 const getAllProduct = async (req, res) => {
+    const arr = [{
+        "price" : 12,
+        "boolean" : true
+    },
+    {
+        "price": 34,
+        "boolean" : true
+    }
+    ]
+    if(arr.boolean) {
+
+    }
     const limit = parseInt(req.query.limit)
     const offset = parseInt(req.query.offset)
     const {title} =req.query
@@ -26,7 +38,10 @@ const getAllProduct = async (req, res) => {
         //
     } else { 
         const allProduct = await Product.findAll({
-            include: [
+            where : {
+                
+            },
+            include : [
                 {
                     model: Category,
                     attributes: ['name']
