@@ -113,6 +113,9 @@ const getOneProduct = async (req, res) => {
 const editProduct = async (req, res) => {
     const { id } = req.params
     const { title, price, discount, thumbnail, description, category_id } = req.body
+    const { file } = req;
+    const urlIThumbnail = `https://backendshopping.herokuapp.com/${file.path}`
+
     const productEdit = await Product.findOne({
         where: {
             id,
@@ -121,7 +124,7 @@ const editProduct = async (req, res) => {
     productEdit.title = title
     productEdit.price = price
     productEdit.discount = discount
-    productEdit.thumbnail = thumbnail
+    productEdit.thumbnail = urlIThumbnail
     productEdit.description = description
     productEdit.category_id = category_id
     await productEdit.save()

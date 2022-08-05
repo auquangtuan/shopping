@@ -11,7 +11,7 @@ productRouter.route('/')
 productRouter.route('/:id')
     .get(getOneProduct)
     .post(uploadSingleImg('thumbnail'),uploadThumbnail)
-    .put(authentication,authorrize([1]),editProduct)
+    .put(authentication,authorrize([1]),uploadSingleImg('thumbnail'),editProduct)
     .delete(checkExits(Product),authentication,authorrize([1]),deleteProduct)
 module.exports = {
     productRouter
