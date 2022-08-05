@@ -200,7 +200,6 @@ module.exports = {
     findOneUser,
     upadtePassword,
     updateUser,
-    editRole,
     getAllOrder,
     getOrderinUser,
     registerAdmin
