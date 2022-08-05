@@ -2,53 +2,53 @@ const { Op } = require('sequelize')
 const { Product, Category, Galery, Size, Tag, Gender } = require('../models')
 const getAllProduct = async (req, res) => {
     const arr = [{
-        "price" : 12,
-        "boolean" : true
+        "price": 12,
+        "boolean": true
     },
     {
         "price": 34,
-        "boolean" : true
+        "boolean": true
     }
     ]
-    if(arr.boolean) {
+    if (arr.boolean) {
 
     }
     const limit = parseInt(req.query.limit)
     const offset = parseInt(req.query.offset)
-    const {title} =req.query
-    if(title){
+    const { title } = req.query
+    if (title) {
         const titleProduct = await Product.findAll({
-            where : {
-                title : {
-                    [Op.like] : `${title}`
+            where: {
+                title: {
+                    [Op.like]: `${title}`
                 }
             }
         })
         res.status(200).send(titleProduct)
-    } else if((limit >= 1 ) & (offset >= 0)) {
+    } else if ((limit >= 1) & (offset >= 0)) {
         //
         const pagiProduct = await Product.findAndCountAll({
-            limit : limit,
-            offset : limit * offset,
+            limit: limit,
+            offset: limit * offset,
             order: [
                 ['id', 'ASC']
             ]
         })
         res.status(200).send(pagiProduct)
         //
-    } else { 
+    } else {
         const allProduct = await Product.findAll({
-            where : {
-                
+            where: {
+
             },
-            include : [
+            include: [
                 {
                     model: Category,
                     attributes: ['name']
                 },
                 {
-                    model : Size,
-                    
+                    model: Size,
+
                 },
             ]
         })
@@ -57,9 +57,9 @@ const getAllProduct = async (req, res) => {
 }
 const createProduct = async (req, res) => {
     const { title, price, discount, thumbnail, description, category_id, tag_id, gender_id } = req.body
-    const addProduct = await Product.create({ title, price, discount, thumbnail, description, category_id , tag_id, gender_id})
+    const addProduct = await Product.create({ title, price, discount, thumbnail, description, category_id, tag_id, gender_id })
     //
-    const {id} = addProduct
+    const { id } = addProduct
     const { file } = req;
     const urlIThumbnail = `https://backendshopping.herokuapp.com/${file.path}`
     const productFound = await Product.findOne({
@@ -81,14 +81,14 @@ const getOneProduct = async (req, res) => {
         },
         include: [
             {
-                model : Size,
+                model: Size,
                 // include : [
                 //     {
                 //         model : Product_Size,
                 //         attributes: ['id', 'product_ID', "size_ID", "amount"],
                 //     }
                 // ]
-                
+
             },
             {
                 model: Galery
@@ -99,13 +99,13 @@ const getOneProduct = async (req, res) => {
             },
             {
                 model: Tag,
-                attributes: ['id','name']
+                attributes: ['id', 'name']
             },
             {
                 model: Gender,
                 attributes: ['gender']
             }
-            
+
         ]
     })
     res.status(200).send(oneProduct)
@@ -114,19 +114,27 @@ const editProduct = async (req, res) => {
     const { id } = req.params
     const { title, price, discount, thumbnail, description, category_id } = req.body
     const { file } = req;
-    const urlIThumbnail = `https://backendshopping.herokuapp.com/${file.path}`
-
     const productEdit = await Product.findOne({
         where: {
             id,
         }
     })
-    productEdit.title = title
-    productEdit.price = price
-    productEdit.discount = discount
-    productEdit.thumbnail = urlIThumbnail
-    productEdit.description = description
-    productEdit.category_id = category_id
+    if (file) {
+        const urlIThumbnail = `https://backendshopping.herokuapp.com/${file.path}`
+        productEdit.thumbnail = urlIThumbnail
+        productEdit.title = title
+        productEdit.price = price
+        productEdit.discount = discount
+        productEdit.description = description
+        productEdit.category_id = category_id
+    } else {
+        productEdit.thumbnail = productEdit.thumbnail
+        productEdit.title = title
+        productEdit.price = price
+        productEdit.discount = discount
+        productEdit.description = description
+        productEdit.category_id = category_id
+    }
     await productEdit.save()
     res.status(201).send(productEdit)
 }
@@ -138,7 +146,7 @@ const deleteProduct = async (req, res) => {
     //     }
     // })
     const deleteProduct = await Product.findOne({
-        where : id
+        where: id
     })
     deleteProduct.delete = true;
     res.status(200).send("Đã Xóa")
