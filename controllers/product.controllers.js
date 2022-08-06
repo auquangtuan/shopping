@@ -140,15 +140,11 @@ const editProduct = async (req, res) => {
 }
 const deleteProduct = async (req, res) => {
     const { id } = req.params
-    // await Product.destroy({
-    //     where: {
-    //         id
-    //     }
-    // })
-    const deleteProduct = await Product.findOne({
-        where: id
+    await Product.destroy({
+        where: {
+            id
+        }
     })
-    deleteProduct.delete = true;
     res.status(200).send("Đã Xóa")
 }
 
