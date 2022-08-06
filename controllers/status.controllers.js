@@ -3,21 +3,16 @@ const {Status, Order_Details, Order, User} = require('../models')
 
 const getAllStatus = async (req,res) => {
     const allStatus = await Status.findAll({
-        include : [
-            {
-                model : Order_Details,
-                include  : [
-                    {
-                        model : Order,
-                        include : [
-                            {
-                                model : User
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
+        // include : [
+        //     {
+        //         model : Order_Details,
+        //         include  : [
+        //             {
+        //                 model : Order
+        //             }
+        //         ]
+        //     }
+        // ]
     })
     res.status(200).send(allStatus)
 }
