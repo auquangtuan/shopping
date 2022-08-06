@@ -69,7 +69,7 @@ const createProduct = async (req, res) => {
     })
     productFound.thumbnail = urlIThumbnail
     await productFound.save()
-    res.send(productFound)
+    res.status(201).send(productFound)
     //
     // res.status(201).send(addProduct)
 }
