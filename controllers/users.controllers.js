@@ -60,13 +60,16 @@ const login = async (req, res) => {
 
 const deleteUser = async (req, res) => {
     const { id } = req.params
-    await User.destroy({
+    const deleteUser = await User.findOne({
         where: {
             id
         }
     })
+    deleteUser.delete = true
+    await deleteUser.save()
     res.status(201).send("Xóa Thành Công")
 }
+
 const updateUser = async (req, res) => {
     const { id } = req.params
     const { fullname, phone, address, email, role_id } = req.body

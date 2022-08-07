@@ -8,15 +8,19 @@ const getAllProduct = async (req, res) => {
     if (title) {
         const titleProduct = await Product.findAll({
             where: {
+                delete : false,
                 title: {
                     [Op.like]: `%${title}%`
-                }
+                },
             }
         })
         res.status(200).send(titleProduct)
     } else if ((limit >= 1) & (offset >= 0)) {
         //
         const pagiProduct = await Product.findAndCountAll({
+            where : {
+                delete : false
+            },  
             limit: limit,
             offset: limit * offset,
             order: [
@@ -28,7 +32,7 @@ const getAllProduct = async (req, res) => {
     } else {
         const allProduct = await Product.findAll({
             where: {
-
+                delete: false
             },
             include: [
                 {
@@ -131,14 +135,23 @@ const editProduct = async (req, res) => {
 }
 const deleteProduct = async (req, res) => {
     const { id } = req.params
-    await Product.destroy({
+    const deleteProduct = await Product.findOne({
         where: {
             id
         }
     })
-    res.status(200).send("Đã Xóa")
+    deleteProduct.delete = true
+    await deleteProduct.save()
+    res.status(200).send(deleteProduct)
 }
-
+const trueDelete = async (req,res) => {
+    const productTrueDel = await Product.findAll({
+        where : {
+            delete: true
+        }
+    })
+    res.status(200).send(productTrueDel)
+}
 const uploadThumbnail = async (req, res) => {
     const { id } = req.params
     const { file } = req;
@@ -156,7 +169,8 @@ module.exports = {
     getAllProduct,
     createProduct,
     editProduct,
-    deleteProduct,
     getOneProduct,
-    uploadThumbnail
+    uploadThumbnail,
+    deleteProduct,
+    trueDelete
 }
