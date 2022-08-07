@@ -18,10 +18,10 @@ const getAllOrderDetails = async (req, res) => {
 const getOrderDetailsChart = async (req, res) => {
     const [allChart] = await sequelize.query(
         `
-        SELECT * FROM order_details
-        INNER JOIN product_sizes ON  product_ID = order_details.productSize
-        INNER JOIN products ON  products.id = product_sizes.product_ID
-        INNER JOIN categories ON categories.id = products.category_id;
+        SELECT * FROM shopping_db.order_details
+        inner join product_sizes on product_sizes.id = order_details.productSize
+        inner join products on products.id = product_sizes.product_ID
+        inner join categories on categories.id = products.category_id
         `
     )
     res.status(200).send(allChart)
