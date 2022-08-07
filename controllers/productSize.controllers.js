@@ -1,7 +1,6 @@
-const { Product_Size, Product,Category, Order_Details} = require('../models')
+const { Product_Size, Product,Category, Order_Details, Order, Size} = require('../models')
 const getAllProductSize = async (req, res) => {
     const allProductSize = await Product_Size.findAll({
-        attributes: ["id","product_ID","size_ID", "amount"],
         include: [
             {
                 model : Product,
@@ -14,8 +13,7 @@ const getAllProductSize = async (req, res) => {
                 ]
             },
             {
-                model: Order_Details,
-                attributes : ["id",'price', 'number', "createdAt","updatedAt"],
+                model : Size
             }
             
         ]
@@ -31,10 +29,26 @@ const createProductSize = async (req, res) => {
 }
 const getOneProductSize = async (req, res) => {
     const { id } = req.params
-    const oneProductSize = await Product_Size.findAll({
+    const oneProductSize = await Product_Size.findOne({
         where: {
             id,
-        }
+        },
+        include: [
+            {
+                model : Product,
+                attributes : ['category_id'],
+                include: [
+                    {
+                        model : Category,
+                        attributes: ['name']
+                    }
+                ]
+            },
+            {
+                model : Size
+            }
+            
+        ]
     })
     res.status(200).send(oneProductSize)
 }

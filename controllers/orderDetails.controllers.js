@@ -15,6 +15,17 @@ const getAllOrderDetails = async (req, res) => {
     })
     res.status(200).send(allOrderDetails)
 }
+const getOrderDetailsChart = async (req, res) => {
+    const [allChart] = await sequelize.query(
+        `
+        SELECT * FROM order_details
+        INNER JOIN product_sizes ON  product_ID = order_details.productSize
+        INNER JOIN products ON  products.id = product_sizes.product_ID
+        INNER JOIN categories ON categories.id = products.category_id;
+        `
+    )
+    res.status(200).send(allChart)
+}
 const createOrderDetails = async (req, res) => {
     const { order_ID, price, number, productSize } = req.body
     const id = productSize;
@@ -74,27 +85,27 @@ const deleteOrderDetails = async (req, res) => {
     res.status(200).send("Đã Xóa")
 }
 const postOrder = async (req, res) => {
-    const { user_ID, fullname, email, phone, address, note, arr , password} = req.body
-    if(password) {
+    const { user_ID, fullname, email, phone, address, note, arr, password } = req.body
+    if (password) {
         // const { fullname, email, phone, address, password } = req.body
 
-    const user = await User.findOne({
-        where: {
-            email
+        const user = await User.findOne({
+            where: {
+                email
+            }
+        })
+        if (user) {
+            res.status(404).send({ error: "Email Đã Tồn Tại" })
+        } else {
+            const salt = bcrypt.genSaltSync(3);
+            const hashPassword = bcrypt.hashSync(password, salt)
+            const newUser = await User.create({ fullname, email, phone, address, password: hashPassword })
+            res.status(201).send(newUser)
+            return user_ID = newUser.id
         }
-    })
-    if (user) {
-        res.status(404).send({ error: "Email Đã Tồn Tại" })
-    } else {
-        const salt = bcrypt.genSaltSync(3);
-        const hashPassword = bcrypt.hashSync(password, salt)
-        const newUser = await User.create({ fullname, email, phone, address, password: hashPassword })
-        res.status(201).send(newUser)
-        return  user_ID = newUser.id
-    }
-    const createOrder = await Order.create({ user_ID, fullname, email, phone, address, note })
-    
-    for (let i = 0; i < arr.length; i++) {
+        const createOrder = await Order.create({ user_ID, fullname, email, phone, address, note })
+
+        for (let i = 0; i < arr.length; i++) {
 
 
             const [getProductSizes] = await sequelize.query(
@@ -103,56 +114,57 @@ const postOrder = async (req, res) => {
                 where product_sizes.product_ID = ${arr[i].product_ID} and product_sizes.size_ID = ${arr[i].size_ID}
                 `
             )
-            
+
             const productSizes = getProductSizes[0].id
-            
-            
+
+
             await Order_Details.create({ order_ID: createOrder.id, price: arr[i].price, number: arr[i].number, productSize: productSizes })
-            
+
             const updateAmount = await Product_Size.findOne({
                 where: {
-                    id : productSizes
+                    id: productSizes
                 }
             })
             updateAmount.amount = (updateAmount.amount - arr[i].number)
             await updateAmount.save()
         }
-        res.status(201).send({messgage : 'Đặt Hàng Thành Công', createOrder})
+        res.status(201).send({ messgage: 'Đặt Hàng Thành Công', createOrder })
     } else {
-        
+
         const createOrder = await Order.create({ user_ID, fullname, email, phone, address, note })
-        
+
         for (let i = 0; i < arr.length; i++) {
-    
-    
-                const [getProductSizes] = await sequelize.query(
-                    `
+
+
+            const [getProductSizes] = await sequelize.query(
+                `
                     select product_sizes.id from product_sizes
                     where product_sizes.product_ID = ${arr[i].product_ID} and product_sizes.size_ID = ${arr[i].size_ID}
                     `
-                )
-                
-                const productSizes = getProductSizes[0].id
-                
-                
-                await Order_Details.create({ order_ID: createOrder.id, price: arr[i].price, number: arr[i].number, productSize: productSizes })
-                
-                const updateAmount = await Product_Size.findOne({
-                    where: {
-                        id : productSizes
-                    }
-                })
-                updateAmount.amount = (updateAmount.amount - arr[i].number)
-                await updateAmount.save()
-            }
-            res.status(201).send({messgage : 'Đặt Hàng Thành Công', createOrder})
+            )
+
+            const productSizes = getProductSizes[0].id
+
+
+            await Order_Details.create({ order_ID: createOrder.id, price: arr[i].price, number: arr[i].number, productSize: productSizes })
+
+            const updateAmount = await Product_Size.findOne({
+                where: {
+                    id: productSizes
+                }
+            })
+            updateAmount.amount = (updateAmount.amount - arr[i].number)
+            await updateAmount.save()
+        }
+        res.status(201).send({ messgage: 'Đặt Hàng Thành Công', createOrder })
     }
 }
 module.exports = {
     getAllOrderDetails,
+    getOrderDetailsChart,
     createOrderDetails,
     editOrderDetails,
     deleteOrderDetails,
     getOneOrderDetails,
-    postOrder
+    postOrder,
 }
