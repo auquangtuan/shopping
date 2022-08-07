@@ -2,8 +2,8 @@ const  {postOrder,createOrderDetails,deleteOrderDetails,editOrderDetails,getAllO
 const orderDetailsRouter = require('express-promise-router')()
 
 orderDetailsRouter.route('/')
-    .post(createOrderDetails)
     .get(getAllOrderDetails)
+    .post(createOrderDetails)
 orderDetailsRouter.route('/:id')
     .get(getOneOrderDetails)
     .put(editOrderDetails)

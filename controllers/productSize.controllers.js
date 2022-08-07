@@ -1,7 +1,7 @@
 const { Product_Size, Product,Category, Order_Details} = require('../models')
 const getAllProductSize = async (req, res) => {
     const allProductSize = await Product_Size.findAll({
-        attributes: ["amount"],
+        attributes: ["product_ID","size_ID", "amount"],
         include: [
             {
                 model : Product,
