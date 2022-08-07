@@ -1,14 +1,23 @@
-const { Product_Size, Product, Size, sequelize } = require('../models')
+const { Product_Size, Product,Category, Order_Details} = require('../models')
 const getAllProductSize = async (req, res) => {
     const allProductSize = await Product_Size.findAll({
-        attributes: ['id', 'product_ID', "size_ID", "amount"],
-        include : [
+        attributes: ["amount"],
+        include: [
             {
-                model : Product
+                model : Product,
+                attributes : ['category_id'],
+                include: [
+                    {
+                        model : Category,
+                        attributes: ['name']
+                    }
+                ]
             },
             {
-                model : Size
+                model: Order_Details,
+                attributes : ['price', 'number', "createdAt","updatedAt"],
             }
+            
         ]
     }
     )
@@ -23,17 +32,9 @@ const createProductSize = async (req, res) => {
 const getOneProductSize = async (req, res) => {
     const { id } = req.params
     const oneProductSize = await Product_Size.findAll({
-        // where: {
-        //     id
-        // },
-        include: [
-            {
-                model: Size
-            },
-            {
-                model: Product
-            }
-        ]
+        where: {
+            id,
+        }
     })
     res.status(200).send(oneProductSize)
 }
