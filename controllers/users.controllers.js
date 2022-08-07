@@ -1,4 +1,4 @@
-const { User, Role, sequelize, Order, Order_Details , Status, Product_Size} = require('../models')
+const { User, Role, sequelize, Order, Order_Details , Status} = require('../models')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const { Op } = require('sequelize')
@@ -60,13 +60,11 @@ const login = async (req, res) => {
 
 const deleteUser = async (req, res) => {
     const { id } = req.params
-    const deleteUser = await User.findOne({
+    await User.destroy({
         where: {
             id
         }
     })
-    deleteUser.delete = true
-    await deleteUser.save()
     res.status(201).send("Xóa Thành Công")
 }
 
