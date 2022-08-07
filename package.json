@@ -4,7 +4,7 @@
   "main": "index.js",
   "author": "Nhom_01",
   "scripts": {
-    "start": "node index.js"
+    "start": "nodemon index.js"
   },
   "license": "MIT",
   "dependencies": {

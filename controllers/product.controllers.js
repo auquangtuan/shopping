@@ -1,5 +1,5 @@
 const { Op } = require('sequelize')
-const { Product, Category, Galery, Size, Tag, Gender } = require('../models')
+const { Product, Category, Galery, Size, Tag, Gender, Product_Size } = require('../models')
 const getAllProduct = async (req, res) => {
     
     const limit = parseInt(req.query.limit)
@@ -45,9 +45,8 @@ const getAllProduct = async (req, res) => {
     }
 }
 const createProduct = async (req, res) => {
-    const { title, price, discount, thumbnail, description, category_id, tag_id, gender_ID } = req.body
+    const { title, price, discount, thumbnail, description, category_id, tag_id, gender_ID, S, M, L, XL, XXL } = req.body
     const addProduct = await Product.create({ title, price, discount, thumbnail, description, category_id, tag_id, gender_ID })
-    //
     const { id } = addProduct
     const { file } = req;
     const urlIThumbnail = `https://backendshopping.herokuapp.com/${file.path}`
@@ -58,9 +57,12 @@ const createProduct = async (req, res) => {
     })
     productFound.thumbnail = urlIThumbnail
     await productFound.save()
+    await Product_Size.create({ product_ID : id , size_ID : 1 , amount : S})
+    await Product_Size.create({ product_ID : id , size_ID : 2 , amount : M})
+    await Product_Size.create({ product_ID : id , size_ID : 3 , amount : L})
+    await Product_Size.create({ product_ID : id , size_ID : 4 , amount : XL})
+    await Product_Size.create({ product_ID : id , size_ID : 5 , amount : XXL})
     res.status(201).send(productFound)
-    //
-    // res.status(201).send(addProduct)
 }
 const getOneProduct = async (req, res) => {
     const { id } = req.params
