@@ -2,7 +2,7 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.bulkInsert('sizes', [{
+    await queryInterface.bulkInsert('Sizes', [{
       size: 'S',
       createdAt: "2022-02-02 00:00:00",
       updatedAt: "2022-02-02 00:00:00"

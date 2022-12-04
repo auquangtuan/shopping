@@ -3,7 +3,7 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
 
-    await queryInterface.bulkInsert('galeries', [{
+    await queryInterface.bulkInsert('Galeries', [{
       product_id: 1,
       thumbnail: 'https://random.imagecdn.app/500/150',
       createdAt: '2022-02-02 00:00:00',

@@ -3,7 +3,7 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
 
-    await queryInterface.bulkInsert('products',
+    await queryInterface.bulkInsert('Products',
       [{
         title: "H04-T4 Áo thun HI Basic Fit nhiều màu-Kem",
         discount: 155000,

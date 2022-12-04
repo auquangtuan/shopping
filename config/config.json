@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "auquangtuan@shoppingshopdb",
-    "password": "nhommot1A",
-    "database": "shopping_db",
-    "host": "shoppingshopdb.mysql.database.azure.com",
+    "username": "sql6582369",
+    "password": "QWTcQEWsKv",
+    "database": "sql6582369",
+    "host": "sql6.freesqldatabase.com",
     "dialect": "mysql"
   },
   "test": {

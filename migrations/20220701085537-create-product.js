@@ -27,14 +27,14 @@ module.exports = {
       category_id: {
         type: Sequelize.INTEGER,
         references : {
-          model : "categories",
+          model : "Categories",
           key : "id"
         }
       },
       tag_id : {
         type: Sequelize.INTEGER,
         references : {
-          model : "tags",
+          model : "Tags",
           key : "id"
         }
       },
@@ -45,7 +45,7 @@ module.exports = {
       gender_ID : {
         type : Sequelize.INTEGER,
         references : {
-          model : "genders",
+          model : "Genders",
           key : "id"
         }
       },
