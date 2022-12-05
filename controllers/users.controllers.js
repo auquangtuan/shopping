@@ -152,10 +152,10 @@ const findOneUser = async (req, res) => {
 const getAllOrder = async (req, res) => {
     const [resuilt] = await sequelize.query(
         `
-        SELECT users.fullname, users.phone,orders.address, orders.fullname,orders.phone, orders.note, orders.status , order_details.price, order_details.number, products.price, products.title FROM users
-        inner join orders on users.id = orders.user_ID
-        inner join order_details on order_details.order_ID = orders.id
-        inner join  products on products.id = order_details.product_ID
+        SELECT Users.fullname, Users.phone,Orders.address, Orders.fullname,Orders.phone, Orders.note, Orders.status , Order_Details.price, Order_Details.number, Products.price, Products.title FROM Users
+        inner join Orders on Users.id = Orders.user_ID
+        inner join Order_Details on Order_Details.order_ID = orders.id
+        inner join  Products on Products.id = Order_Details.product_ID
         `
     )
     res.status(200).send(resuilt)
